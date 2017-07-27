@@ -71,8 +71,8 @@ public class WebViewActivity extends Activity {
       }
 
       mTitleView.setText(mTitle);
-      mBadgeView.setBadgeCount(mNumber);
-      mBadgeView.setTargetView(mNewsView);
+    //  mBadgeView.setBadgeCount(mNumber);
+    //  mBadgeView.setTargetView(mNewsView);
     }
     private void initWebView() {
         mWebSettings = mWebview.getSettings();

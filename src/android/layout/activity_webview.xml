@@ -37,6 +37,7 @@
             android:gravity="center"
             android:src="@drawable/news"
             android:layout_marginRight="10px"
+			android:visibility="gone"
             android:layout_alignParentRight="true" />
     </RelativeLayout>
     <!--显示网页区域-->
