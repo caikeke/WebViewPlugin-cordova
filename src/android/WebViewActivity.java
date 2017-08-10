@@ -97,8 +97,8 @@ public class WebViewActivity extends Activity {
                 view.loadUrl(url);
               try {
                 URL mUrl = new URL(url);
-                String currentHost = mUrl.getHost();
-                if(urlHost.equals(currentHost)){
+                String currentHref = mUrl.getHost()+"/ods/zmxy/zhima_authInfo_req/";
+                if(urlHost.equals(currentHref)){
                   new Thread(){
                     public void run(){
                       try {
@@ -109,7 +109,7 @@ public class WebViewActivity extends Activity {
                     }
                   }.start();     //这种内部匿名类的写法，快速生成一个线程对象，也有利于快速垃圾回收
                 }
-                Toast.makeText(WebViewActivity.this,"CurrentURL:"+currentHost,Toast.LENGTH_LONG).show();
+                Toast.makeText(WebViewActivity.this,"CurrentURL:"+url,Toast.LENGTH_LONG).show();
               } catch (MalformedURLException e) {
                 e.printStackTrace();
               }
