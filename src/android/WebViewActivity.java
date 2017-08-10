@@ -10,10 +10,16 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.yhloan.app.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Timer;
 
 public class WebViewActivity extends Activity {
 
@@ -29,6 +35,7 @@ public class WebViewActivity extends Activity {
     private int mNumber;
     //显示标题
     private String mTitle;
+   private String urlHost;
   private String mURL;
     WebView mWebview;
     WebSettings mWebSettings;
@@ -47,6 +54,7 @@ public class WebViewActivity extends Activity {
         mBackView.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
+            setResult(1001);
             WebViewActivity.this.finish();;
           }
        });
@@ -64,6 +72,7 @@ public class WebViewActivity extends Activity {
       try {
         JSONObject jsonObject = new JSONObject(paramJSON);
         mNumber=Integer.valueOf(jsonObject.get("badgeNum").toString());
+        urlHost=jsonObject.get("host").toString();
         mTitle=jsonObject.get("title").toString();
         mURL=jsonObject.get("URL").toString();
       } catch (JSONException e) {
@@ -86,6 +95,25 @@ public class WebViewActivity extends Activity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
+              try {
+                URL mUrl = new URL(url);
+                String currentHost = mUrl.getHost();
+                if(urlHost.equals(currentHost)){
+                  new Thread(){
+                    public void run(){
+                      try {
+                        Thread.sleep(3000);
+                        setResult(1001);
+                        WebViewActivity.this.finish();
+                      } catch (InterruptedException e) { }
+                    }
+                  }.start();     //这种内部匿名类的写法，快速生成一个线程对象，也有利于快速垃圾回收
+                }
+                Toast.makeText(WebViewActivity.this,"CurrentURL:"+currentHost,Toast.LENGTH_LONG).show();
+              } catch (MalformedURLException e) {
+                e.printStackTrace();
+              }
+
                 return true;
             }
         });
@@ -95,6 +123,7 @@ public class WebViewActivity extends Activity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            setResult(1001);
             this.finish();
             return true;
         }
