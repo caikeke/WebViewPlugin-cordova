@@ -1,10 +1,13 @@
 package com.webview.yhck;
 
 import android.app.Activity;
+import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -90,7 +93,12 @@ public class WebViewActivity extends Activity {
         //不使用缓存:
         mWebview.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         mWebview.loadUrl(mURL);
-        //复写shouldOverrideUrlLoading()方法，使得打开网页时不调用系统浏览器， 而是在本WebView中显示
+      // android 5.0以上默认不支持Mixed Content
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        mWebview.getSettings().setMixedContentMode(
+          WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+      }
+      //复写shouldOverrideUrlLoading()方法，使得打开网页时不调用系统浏览器， 而是在本WebView中显示
         mWebview.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -109,13 +117,18 @@ public class WebViewActivity extends Activity {
                     }
                   }.start();     //这种内部匿名类的写法，快速生成一个线程对象，也有利于快速垃圾回收
                 }
-                Toast.makeText(WebViewActivity.this,"CurrentURL:"+url,Toast.LENGTH_LONG).show();
+               // Toast.makeText(WebViewActivity.this,"CurrentURL:"+url,Toast.LENGTH_LONG).show();
               } catch (MalformedURLException e) {
                 e.printStackTrace();
               }
 
                 return true;
             }
+
+          @Override
+          public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+            handler.proceed();// 接受所有网站的证书
+          }
         });
     }
 
