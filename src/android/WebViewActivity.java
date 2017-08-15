@@ -132,17 +132,18 @@ public class WebViewActivity extends Activity {
         });
     }
 
-    //点击返回上一页面而不是退出浏览器
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+ //点击返回退出浏览器
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK ) {
             setResult(1001);
             this.finish();
             return true;
         }
-        return true;
-    }
-    //销毁Webview
+    return super.onKeyDown(keyCode, event);
+  }
+
+  //销毁Webview
     @Override
     protected void onDestroy() {
         if (mWebview != null) {
