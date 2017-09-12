@@ -7,7 +7,8 @@ declare let cordova:any;
  let dataJson={
    title:"常见问题", 
    badgeNum:"10", 
-   URL:"https://www.baidu.com/"
+   URL:"https://www.baidu.com/"，
+   host:"10.0.68.202/ods/zmxy/zhima_authInfo_req/"
 }
 cordova.plugins.WebViewPlugin.showWebView(dataJson,(msg)=>{
   if("openNews"==msg){
