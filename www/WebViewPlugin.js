@@ -9,7 +9,9 @@ var myFunc = function(){};
 myFunc.prototype.showWebView = function(arg0, success, error) {  
     exec(success, error, "WebViewPlugin", "showWebView", [arg0]);  
 };  
-
+myFunc.prototype.webViewAddParam = function(arg0, success, error) {  
+    exec(success, error, "WebViewPlugin", "webViewAddParam", [arg0]);  
+}; 
 var showFunc = new myFunc();
 module.exports = showFunc;
 
