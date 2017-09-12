@@ -2,9 +2,9 @@
 ```
 ionic 项目，自定义WebView Cordova插件
 使用方法：
-declare let cordova:
+declare let cordova:any;
 1.简单显示
-any; let dataJson={
+ let dataJson={
    title:"常见问题", 
    badgeNum:"10", 
    URL:"https://www.baidu.com/"
