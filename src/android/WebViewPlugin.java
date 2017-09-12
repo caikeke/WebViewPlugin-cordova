@@ -27,16 +27,17 @@ public class WebViewPlugin extends CordovaPlugin{
     this.mCallbackContext = callbackContext;
     if (!"".equals(action)||action!=null) {
       getParam=args.getJSONObject(0).toString();
-      openActivity();
+      openActivity(action);
       return true;
     }
     mCallbackContext.error("error");
     return false;
   }
 
-  private void openActivity() {
+  private void openActivity(String action) {
     Intent intent = new Intent(cordova.getActivity(),WebViewActivity.class);
     intent.putExtra("Param",getParam);
+    intent.putExtra("Action",action);
     cordova.startActivityForResult(this, intent, MSG_REQUEST_CODE);
   }
 
