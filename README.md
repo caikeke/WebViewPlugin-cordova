@@ -1,4 +1,5 @@
 # WebViewPlugin-cordova
+```
 ionic 项目，自定义WebView Cordova插件
 使用方法：
 declare let cordova:
@@ -13,6 +14,7 @@ cordova.plugins.WebViewPlugin.showWebView(dataJson,(msg)=>{
   
   }
 },null);
+```
 ```
 2.webView中原声与JS交互
 let dataJson={
