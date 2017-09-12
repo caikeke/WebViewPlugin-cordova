@@ -13,9 +13,8 @@ cordova.plugins.WebViewPlugin.showWebView(dataJson,(msg)=>{
   
   }
 },null);
-
-2.webView中原声与JS交互1
-···
+```
+2.webView中原声与JS交互
 let dataJson={
         title:"常见问题",
         badgeNum:"10",
@@ -25,4 +24,4 @@ let dataJson={
       };
   cordova.plugins.WebViewPlugin.webViewAddParam(dataJson,(msg)=>{
   },null);
-···
+```
