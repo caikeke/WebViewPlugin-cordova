@@ -128,10 +128,10 @@ public class WebViewActivity extends Activity {
       @Override
       public boolean shouldOverrideUrlLoading(WebView view, String url) {
         view.loadUrl(url);
-        try {
-          URL mUrl = new URL(url);
-          String currentHref = mUrl.getHost() + "/ods/zmxy/zhima_authInfo_req/";
-          if (urlHost.equals(currentHref)) {
+      //  try {
+          //URL mUrl = new URL(url);
+         // String currentHref = mUrl.getHost() + "/ods/zmxy/zhima_authInfo_req/";
+          if (url.indexOf(urlHost)!=-1) {
             new Thread() {
               public void run() {
                 try {
@@ -143,9 +143,9 @@ public class WebViewActivity extends Activity {
               }
             }.start();     //这种内部匿名类的写法，快速生成一个线程对象，也有利于快速垃圾回收
           }
-        } catch (MalformedURLException e) {
-          e.printStackTrace();
-        }
+       // } catch (MalformedURLException e) {
+      //    e.printStackTrace();
+      //  }
 
         return true;
       }
